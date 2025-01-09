@@ -6,7 +6,15 @@ const options = {
     }
 };
 
-fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=1&sort_by=popularity.desc', options)
+const APIurl = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=1&sort_by=popularity.desc'
+const title = document.querySelector('#title')
+
+const movieMap = new Map()
+
+fetch(APIurl, options)
     .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+    .then(res => {res['results'].forEach(data => {
+        movieMap.set(data)
+    });})
+
+console.log(movieMap)
