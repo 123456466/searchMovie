@@ -1,0 +1,37 @@
+body{
+    margin: 0px;
+}
+
+header{
+    background-color: gray;
+    color: white;
+    text-align: center;
+    margin: 0px;
+}
+#bigTitle{
+    margin: 0px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#movieCard{
+    align-items: center;
+    width: fit-content;
+}
+
+#title{
+    width: max-content;
+}
+
+#content{
+    width: max-content;
+}
+
+#marks{
+    width: max-content;
+}
