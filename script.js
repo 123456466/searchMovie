@@ -7,14 +7,27 @@ const options = {
 };
 
 const APIurl = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=1&sort_by=popularity.desc'
-const title = document.querySelector('#title')
 
-const movieMap = new Map()
+const fetchMovies = async function () {
+    const response = await fetch(APIurl, options)
+        .then(res => res.json())
+        .then(res => res['results'])
+    response.forEach((value) => {
+        let img = value['poster_path']
+        let title = value['title']
+        let content = value['overview']
+        let marks = value['vote_average']
 
-fetch(APIurl, options)
-    .then(res => res.json())
-    .then(res => {res['results'].forEach(data => {
-        movieMap.set(data)
-    });})
+        let tampHTML = `
+        <div id="movieCard">
+            <img id="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
+            <p id="title">${title}</p>
+            <p id="content">${content}</p>
+            <p id="marks">${marks}</p>
+            </div>
+        `
+        document.querySelector('main').innerHTML = tampHTML;
+    })
+}
 
-console.log(movieMap)
+fetchMovies()
