@@ -26,7 +26,7 @@ const fetchMovies = async function () {
             <p id="marks">${marks}</p>
             </div>
         `
-        document.querySelector('main').innerHTML = tampHTML;
+        document.querySelector('main').innerHTML += tampHTML;
     })
 }
 

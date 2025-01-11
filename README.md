@@ -36,9 +36,3 @@ const fetchMovies = async function () {
 }
 
 fetchMovies()
-
-//문제점
-자료는 잘 가져왔지만 0번째 배열 하나만 가져왔다.
-
-//내가 생각하는 이유유
-배열을 순회하는 함수가 없다.

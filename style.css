@@ -14,31 +14,34 @@ header{
 }
 
 main{
-    display: flex;
+    display: grid;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 #movieCard{
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    display: flex;
     width: fit-content;
+    margin: 30px auto auto auto;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 #title{
     width: max-content;
-    margin: 0px;
+    margin: auto;
 }
 
 #content{
     width: 200px;
-    margin: 0px;
+    height: 150px;
+    margin: auto;
+    overflow: hidden;
 }
 
 #marks{
     width: max-content;
-    margin: 0px;
+    margin: auto;
 }
