@@ -12,16 +12,18 @@ const fetchMovies = async function () {
     const response = await fetch(APIurl, options)
         .then(res => res.json())
         .then(res => res['results'])
+        .catch(err => console.error(err));
     response.forEach((value) => {
         let img = value['poster_path']
         let title = value['title']
         let marks = value['vote_average']
+        let id = value['id']
 
         let tampHTML = `
-        <div id="movieCard" onclick="modal(this)">
-            <img id="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
-            <p id="title">${title}</p>
-            <p id="marks">${marks}</p>
+        <div class="movieCard" onclick="modal(this)" data-id="${id}">
+            <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
+            <p class="title">${title}</p>
+            <p class="marks">${marks}</p>
             </div>
         `
         document.querySelector('main').innerHTML += tampHTML;
@@ -38,16 +40,18 @@ const searchAPI = async function () {
         const response = await fetch(searchAPIURL, options)
             .then(res => res.json())
             .then(res => res['results'])
+            .catch(err => console.error(err));
         response.forEach((value) => {
             let img = value['poster_path']
             let title = value['title']
             let marks = value['vote_average']
+            let id = value['id']
 
             let tampHTML = `
-            <div id="movieCard" onclick="modal(this)">
-                <img id="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
-                <p id="title">${title}</p>
-                <p id="marks">${marks}</p>
+            <div class="movieCard" onclick="modal(this)" data-id="${id}">
+                <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
+                <p class="title">${title}</p>
+                <p class="marks">${marks}</p>
                 </div>
             `
             document.querySelector('main').innerHTML += tampHTML;
@@ -62,11 +66,25 @@ document.querySelector('#searchBtn').addEventListener('click', async function ()
     searchAPI()
 })
 
-const modal = function(detail){
-    document.querySelector('#modal').style.display='flex'
-    console.log(detail)
+const modal = async function (detail) {
+    const id = detail.dataset.id
+    const modalMovie = `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`
+    const response = await fetch(modalMovie, options)
+        .then(res => res.json())
+        .catch(err => console.error(err));
+
+        let img = response['poster_path']
+        let title = response['title']
+        let tagline = response['tagline']
+        let content = response['overview']
+    document.querySelector('#modalimg').src=`https://image.tmdb.org/t/p/w400${img}`
+    document.querySelector('#modalTitle').innerHTML=title
+    document.querySelector('#modalCatchPhrase').innerHTML=tagline
+    document.querySelector('#modalComment').innerHTML=content
+
+    document.querySelector('#modal').style.display = 'flex'
 }
 
-document.querySelector('#modal').addEventListener('click', function(){
-    document.querySelector('#modal').style.display='none'
+document.querySelector('#modal').addEventListener('click', function () {
+    document.querySelector('#modal').style.display = 'none'
 })

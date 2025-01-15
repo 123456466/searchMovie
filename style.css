@@ -21,7 +21,7 @@ main{
     grid-template-columns: repeat(5, 1fr);
 }
 
-#movieCard{
+.movieCard{
     width: fit-content;
     margin: 30px auto auto auto;
     justify-content: center;
@@ -29,12 +29,12 @@ main{
     align-items: center;
 }
 
-#title{
+.title{
     width: max-content;
     margin: 6px auto 6px auto;
 }
 
-#marks{
+.marks{
     width: max-content;
     margin: auto;
 }
@@ -48,9 +48,23 @@ main{
 }
 
 #modalContent{
+    display: grid;
+    justify-content: center;
+    align-items: center;
     background-color: white;
-    margin: 10% auto;
+    margin: 3% auto auto auto;
     width: 60%;
-    padding: 30px;
+    height: 80%;
+    padding: 30px 30px 40px 30px;
     position: relative;
+    grid-template-columns: repeat(2, 1fr)
+}
+
+#modalimg{
+    height: 571px;
+}
+
+.exit{
+    width: 200%;
+    text-align: center;
 }
