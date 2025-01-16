@@ -22,8 +22,8 @@ const fetchMovies = async function () {
         let tampHTML = `
         <div class="movieCard" onclick="modal(this)" data-id="${id}">
             <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
-            <p class="title">${title}</p>
-            <p class="marks">${marks}</p>
+            <h4 class="title">${title}</h4>
+            <p class="marks">평점:${marks}</p>
             </div>
         `
         document.querySelector('main').innerHTML += tampHTML;
@@ -50,8 +50,8 @@ const searchAPI = async function () {
             let tampHTML = `
             <div class="movieCard" onclick="modal(this)" data-id="${id}">
                 <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
-                <p class="title">${title}</p>
-                <p class="marks">${marks}</p>
+                <h4 class="title">${title}</h4>
+                <p class="marks">평점:${marks}</p>
                 </div>
             `
             document.querySelector('main').innerHTML += tampHTML;
@@ -73,14 +73,19 @@ const modal = async function (detail) {
         .then(res => res.json())
         .catch(err => console.error(err));
 
-        let img = response['poster_path']
-        let title = response['title']
-        let tagline = response['tagline']
-        let content = response['overview']
-    document.querySelector('#modalimg').src=`https://image.tmdb.org/t/p/w400${img}`
-    document.querySelector('#modalTitle').innerHTML=title
-    document.querySelector('#modalCatchPhrase').innerHTML=tagline
-    document.querySelector('#modalComment').innerHTML=content
+    let img = response['poster_path']
+    let title = response['title']
+    let tagline = response['tagline']
+    let content = response['overview']
+    document.querySelector('#modalimg').src = `https://image.tmdb.org/t/p/w400${img}`
+    document.querySelector('#modalTitle').innerHTML = title
+    if (tagline === '') {
+        document.querySelector('#modalCatchPhrase').innerHTML = ''
+    } else {
+        document.querySelector('#modalCatchPhrase').innerHTML = `"${tagline}"`
+    }
+
+    document.querySelector('#modalComment').innerHTML = content
 
     document.querySelector('#modal').style.display = 'flex'
 }
