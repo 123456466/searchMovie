@@ -8,26 +8,30 @@ const options = {
 
 const APIurl = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=1&sort_by=popularity.desc'
 
-const fetchMovies = async function () {
-    const response = await fetch(APIurl, options)
-        .then(res => res.json())
-        .then(res => res['results'])
-        .catch(err => console.error(err));
+const makeCard = function (response) {
     response.forEach((value) => {
         let img = value['poster_path']
         let title = value['title']
         let marks = value['vote_average']
         let id = value['id']
 
-        let tampHTML = `
+        let tempHTML = `
         <div class="movieCard" onclick="modal(this)" data-id="${id}">
             <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
             <h4 class="title">${title}</h4>
             <p class="marks">평점:${marks}</p>
             </div>
         `
-        document.querySelector('main').innerHTML += tampHTML;
+        document.querySelector('main').innerHTML += tempHTML;
     })
+}
+
+const fetchMovies = async function () {
+    const response = await fetch(APIurl, options)
+        .then(res => res.json())
+        .then(res => res['results'])
+        .catch(err => console.error(err));
+    makeCard(response)
 }
 
 const searchAPI = async function () {
@@ -41,21 +45,7 @@ const searchAPI = async function () {
             .then(res => res.json())
             .then(res => res['results'])
             .catch(err => console.error(err));
-        response.forEach((value) => {
-            let img = value['poster_path']
-            let title = value['title']
-            let marks = value['vote_average']
-            let id = value['id']
-
-            let tampHTML = `
-            <div class="movieCard" onclick="modal(this)" data-id="${id}">
-                <img class="movieimg" src="https://image.tmdb.org/t/p/w200${img}">
-                <h4 class="title">${title}</h4>
-                <p class="marks">평점:${marks}</p>
-                </div>
-            `
-            document.querySelector('main').innerHTML += tampHTML;
-        })
+            makeCard(response)
     }
 }
 
