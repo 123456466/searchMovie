@@ -45,7 +45,7 @@ const searchAPI = async function () {
             .then(res => res.json())
             .then(res => res['results'])
             .catch(err => console.error(err));
-            makeCard(response)
+        makeCard(response)
     }
 }
 
@@ -75,7 +75,11 @@ const modal = async function (detail) {
         document.querySelector('#modalCatchPhrase').innerHTML = `"${tagline}"`
     }
 
-    document.querySelector('#modalComment').innerHTML = content
+    if (content === '') {
+        document.querySelector('#modalComment').innerHTML = `"정보가 없습니다."`
+    } else {
+        document.querySelector('#modalComment').innerHTML = content
+    }
 
     document.querySelector('#modal').style.display = 'flex'
 }
